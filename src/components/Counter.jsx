@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import './counter.css'
 import IncDec from './IncDec';
+import List from './List';
 
 const Counter = () => {
-    const [count, setCount] = useState(0);
+    const [count, setCount] = useState(5);
     const [isVisible, setIsVisible] = useState(true)
+    const [posts, setPosts] = useState([])
 
     useEffect(() => {
-        console.log('Updeted!')
-    },[count])
+        fetch('https://jsonplaceholder.typicode.com/posts')
+            .then(response => response.json())
+            .then(json => setPosts(json))
+    }, [])
 
     const handleDecrement = () => {
         setCount(count - 1)
@@ -28,12 +32,13 @@ const Counter = () => {
     return (
         <>
             {isVisible &&
-            <IncDec 
-                    handleDecrement={handleDecrement} 
-                    handleIncrement={handleIncrement} 
+                <IncDec
+                    handleDecrement={handleDecrement}
+                    handleIncrement={handleIncrement}
                     count={count}
-            />}
+                />}
             <button onClick={handleShowHide}>Show / Hide</button>
+            <List posts={posts} />
         </>
     );
 };

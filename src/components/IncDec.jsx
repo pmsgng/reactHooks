@@ -5,7 +5,7 @@ const IncDec = ({handleDecrement, handleIncrement, count}) => {
     useEffect(() => {
         console.log('Mounted')
         return () => {
-            console.log('Unmount')
+            console.log('WillUnmount') 
         }
     }, [])
 
